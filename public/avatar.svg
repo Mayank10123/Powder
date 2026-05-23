@@ -1,0 +1,54 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="100" fill="#fff5e6"/>
+  
+  <!-- Head -->
+  <circle cx="100" cy="100" r="55" fill="#ff9f43"/>
+  
+  <!-- Left ear -->
+  <path d="M 65 50 L 55 15 L 75 45 Z" fill="#ff9f43"/>
+  <path d="M 63 55 L 58 30 L 70 50 Z" fill="#fdbf6e"/>
+  
+  <!-- Right ear -->
+  <path d="M 135 50 L 145 15 L 125 45 Z" fill="#ff9f43"/>
+  <path d="M 137 55 L 142 30 L 130 50 Z" fill="#fdbf6e"/>
+  
+  <!-- Face markings -->
+  <ellipse cx="85" cy="105" rx="12" ry="18" fill="#ffffff"/>
+  <ellipse cx="115" cy="105" rx="12" ry="18" fill="#ffffff"/>
+  
+  <!-- Eyes -->
+  <g>
+    <!-- Left eye -->
+    <circle cx="85" cy="95" r="8" fill="#000000"/>
+    <circle cx="87" cy="92" r="3" fill="#ffffff"/>
+    
+    <!-- Right eye -->
+    <circle cx="115" cy="95" r="8" fill="#000000"/>
+    <circle cx="117" cy="92" r="3" fill="#ffffff"/>
+  </g>
+  
+  <!-- Eyebrows -->
+  <path d="M 75 85 Q 85 80 92 85" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 108 85 Q 115 80 125 85" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  
+  <!-- Nose -->
+  <path d="M 100 105 L 98 112 L 102 112 Z" fill="#ff69b4"/>
+  
+  <!-- Mouth -->
+  <path d="M 100 112 Q 95 118 90 116" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 100 112 Q 105 118 110 116" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  
+  <!-- Whiskers -->
+  <line x1="50" y1="100" x2="70" y2="100" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="50" y1="108" x2="70" y2="108" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="130" y1="100" x2="150" y2="100" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="130" y1="108" x2="150" y2="108" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Smile blush -->
+  <ellipse cx="75" cy="115" rx="7" ry="5" fill="#ffb6c1" opacity="0.6"/>
+  <ellipse cx="125" cy="115" rx="7" ry="5" fill="#ffb6c1" opacity="0.6"/>
+  
+  <!-- Body hint -->
+  <ellipse cx="100" cy="160" rx="30" ry="25" fill="#ff9f43" opacity="0.7"/>
+</svg>

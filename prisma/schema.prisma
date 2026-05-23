@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Service {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique
+  leads     Lead[]
+  createdAt DateTime @default(now())
+
+  @@map("services")
+}
+
+model Provider {
+  id                Int      @id @default(autoincrement())
+  name              String   @unique
+  email             String   @unique
+  monthlyQuota      Int      @default(10)
+  currentMonth      Int      @default(1) // January = 1, etc.
+  currentYear       Int      @default(2026)
+  leadsReceivedCount Int     @default(0)
+  
+  // For fair distribution - track the index for round-robin
+  service1RoundRobinIndex Int @default(0)
+  service2RoundRobinIndex Int @default(0)
+  service3RoundRobinIndex Int @default(0)
+  
+  assignments ProviderAssignment[]
+  quotaResets QuotaReset[]
+  createdAt   DateTime @default(now())
+
+  @@map("providers")
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  phoneNumber String
+  name        String
+  city        String
+  description String
+  serviceId   Int
+  service     Service  @relation(fields: [serviceId], references: [id])
+  
+  // Ensure unique constraint at DB level: same phone + service = duplicate
+  @@unique([phoneNumber, serviceId])
+  
+  assignments ProviderAssignment[]
+  createdAt   DateTime @default(now())
+
+  @@map("leads")
+}
+
+model ProviderAssignment {
+  id          String   @id @default(cuid())
+  leadId      String
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  providerId  Int
+  provider    Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  
+  // Ensure same provider doesn't get assigned same lead twice
+  @@unique([leadId, providerId])
+  
+  createdAt   DateTime @default(now())
+
+  @@map("provider_assignments")
+}
+
+// For webhook idempotency - track quota resets
+model QuotaReset {
+  id              String   @id @default(cuid())
+  providerId      Int
+  provider        Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  webhookId       String   @unique // Idempotency key
+  month           Int
+  year            Int
+  previousQuota   Int
+  newQuota        Int
+  processedAt     DateTime @default(now())
+
+  @@map("quota_resets")
+}
+
+// Real-time event tracking for WebSocket broadcasts
+model LeadAssignmentEvent {
+  id          String   @id @default(cuid())
+  leadId      String
+  providerId  Int
+  eventType   String   // "assigned", "quota_reset", etc.
+  payload     String   // JSON stringified data
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("lead_assignment_events")
+}
