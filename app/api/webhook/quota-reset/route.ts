@@ -1,9 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { resetProviderQuota, resetAllProviderQuotas } from "@/lib/allocation";
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-
-const prisma = new PrismaClient();
 
 /**
  * POST /api/webhook/quota-reset
