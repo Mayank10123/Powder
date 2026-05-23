@@ -185,7 +185,7 @@ function selectFairProviders(
   for (const provider of selected) {
     prisma.provider
       .update({
-        where: { id: provider.id },
+        where: { id: provider },
         data: { [roundRobinKey]: { increment: 1 } },
       })
       .catch(console.error); // Fire and forget
